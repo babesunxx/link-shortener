@@ -3,9 +3,9 @@ import { getLink } from '@/lib/db';
 
 export async function GET(
     request: Request,
-    { params }: { params: { code: string } }
+    { params }: { params: Promise<{ code: string }> }
 ) {
-    const { code } = params;
+    const { code } = await params;
 
     const originalUrl = await getLink(code);
 

@@ -21,7 +21,10 @@ export async function POST(request: Request) {
 
         // Save link and get short code
         const shortCode = await saveLink(url);
-        const shortUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/${shortCode}`;
+
+        // Get base URL from request
+        const baseUrl = new URL(request.url).origin;
+        const shortUrl = `${baseUrl}/${shortCode}`;
 
         return NextResponse.json({ shortUrl, shortCode });
     } catch (error) {
